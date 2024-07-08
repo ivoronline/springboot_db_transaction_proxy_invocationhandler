@@ -19,7 +19,7 @@ public class MyService implements IMyService {
 
     //INSERT RECORDS
     for (int i = 1; i <= 2; i++) {
-      //if(i==2) { throw new Exception("Exception"); }
+      if(i==2) { throw new Exception("Exception"); }
       repository.insert("Person " + i, 10 * i);
     }
 
