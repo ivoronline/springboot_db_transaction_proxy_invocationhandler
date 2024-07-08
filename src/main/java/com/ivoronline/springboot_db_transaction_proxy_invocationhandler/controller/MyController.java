@@ -1,8 +1,6 @@
 package com.ivoronline.springboot_db_transaction_proxy_invocationhandler.controller;
 
 import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.IMyService;
-import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.MyService;
-import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.serviceproxy.MyServiceInvocationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,7 @@ public class MyController {
   @ResponseBody
   @GetMapping("/insert")
   public String insert() throws Exception {
-    myServiceProxy.insert(); //Call Proxy Method
+    myServiceProxy.insert();
     return "Records Inserted";
   }
   

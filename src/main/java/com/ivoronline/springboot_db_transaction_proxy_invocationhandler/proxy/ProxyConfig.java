@@ -1,4 +1,4 @@
-package com.ivoronline.springboot_db_transaction_proxy_invocationhandler.serviceproxy;
+package com.ivoronline.springboot_db_transaction_proxy_invocationhandler.proxy;
 
 import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.IMyService;
 import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.MyService;
