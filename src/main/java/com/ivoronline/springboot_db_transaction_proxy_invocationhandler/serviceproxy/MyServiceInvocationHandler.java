@@ -26,6 +26,8 @@ public class MyServiceInvocationHandler implements InvocationHandler {
   //=========================================================================================================
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+  
+    if(!method.getName().equals("insert")) { return method.invoke(myService, args); }
 
     try {
     

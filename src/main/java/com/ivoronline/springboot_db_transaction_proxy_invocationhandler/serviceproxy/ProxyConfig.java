@@ -1,29 +1,32 @@
-package com.ivoronline.springboot_db_transaction_proxy_invocationhandler.config;
+package com.ivoronline.springboot_db_transaction_proxy_invocationhandler.serviceproxy;
 
 import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.IMyService;
 import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.service.MyService;
-import com.ivoronline.springboot_db_transaction_proxy_invocationhandler.serviceproxy.MyServiceInvocationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import javax.sql.DataSource;
 import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 @Configuration
-public class DatabaseConfig {
+public class ProxyConfig {
 
   //PROPERTIES
-  @Autowired private DataSource dataSource;
-
-  //=========================================================================================================
-  // CONNECTION
-  //=========================================================================================================
-  @Bean
-  public Connection connection() throws SQLException {
-    System.out.println("connection");
-    return dataSource.getConnection();
-  }
+  @Autowired private MyServiceInvocationHandler myServiceInvocationHandler;
   
+  //=========================================================================================================
+  // GET MY SERVICE PROXY
+  //=========================================================================================================
+  @Bean("myServiceProxy")
+  public IMyService myServiceProxy() {
+    
+    IMyService myServiceProxy = (IMyService) Proxy.newProxyInstance(
+        MyService.class.getClassLoader()
+      , new Class[] { IMyService.class }
+      , myServiceInvocationHandler
+    );
+    
+    return myServiceProxy;
+    
+  }
+
 }
