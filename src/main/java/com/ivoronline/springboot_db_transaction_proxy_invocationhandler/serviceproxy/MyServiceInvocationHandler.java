@@ -11,9 +11,12 @@ import java.sql.Connection;
 public class MyServiceInvocationHandler implements InvocationHandler {
 
   //PROPERTIES
+             private IMyService myService;
   @Autowired private Connection connection;
-  private IMyService myService;
-
+  
+  //=========================================================================================================
+  // CONSTRUCTOR
+  //=========================================================================================================
   public MyServiceInvocationHandler(IMyService myService) {
     this.myService = myService;
   }
@@ -28,22 +31,22 @@ public class MyServiceInvocationHandler implements InvocationHandler {
     
       //START TRANSACTION
       System.out.println("Before Method " + method.getName());
-      //connection.setAutoCommit(true);
+      connection.setAutoCommit(false);
       
       //CALL SERVICE
       method.invoke(myService, args);
       
       //COMMIT TRANSACTION
       System.out.println("After Method " + method.getName());
-      //connection.commit();
+      connection.commit();
       
     }
     catch (Exception e) {
       //ROLLBACK TRANSACTION
-      ///connection.rollback();
+      connection.rollback();
     }
     finally {
-      //connection.close();
+      connection.close();
     }
 
     return 1;
